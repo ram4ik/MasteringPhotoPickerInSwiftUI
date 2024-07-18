@@ -15,6 +15,10 @@ struct ContentView: View {
     var body: some View {
         VStack {
             PhotosPicker("Select a photo", selection: $selectedItem, matching: .images)
+                .photosPickerStyle(.compact)
+                .frame(height: 300)
+            
+            Spacer()
             
             if let photo {
                 photo
@@ -23,6 +27,15 @@ struct ContentView: View {
                     .clipShape(.rect(cornerRadius: 20))
                     .frame(width: 300, height: 300)
                     .shadow(radius: 5)
+            } else {
+                ContentUnavailableView("Get started by selecting a photo from above",  systemImage: "photo")
+                    .frame(height: 300)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(.gray, lineWidth: 2)
+                            .shadow(radius: 5)
+                    )
+                    .frame(width: 300, height: 300)
             }
         }
         .onChange(of: selectedItem) { _, _ in
