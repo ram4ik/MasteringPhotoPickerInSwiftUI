@@ -27,8 +27,8 @@ struct ContentView: View {
         }
         .onChange(of: selectedItem) { _, _ in
             Task {
-                if let loadedImage = try? await selectedItem?.loadTransferable(type: Image.self) {
-                    photo = loadedImage
+                if let loadedImageData  = try? await selectedItem?.loadTransferable(type: Data.self), let uiImage = UIImage(data: loadedImageData) {
+                    photo = Image(uiImage: uiImage)
                 } else {
                     print("Failed to load image")
                 }
